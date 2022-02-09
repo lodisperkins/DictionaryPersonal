@@ -16,9 +16,8 @@ int main()
 	names.addItem(2, "Lodis2");
 	names.addItem(8, "Lodis3");
 	names.addItem(3, "Lodis4");
-
 	const char* value = names[8];
-	if (names.remove(8))
+	if (names.tryGetValue(1, value))
 		printDictionary(names);
 
 	std::cout << value << std::endl;

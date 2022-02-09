@@ -8,23 +8,61 @@ public:
 	Dictionary<TKey, TValue>(const Dictionary<TKey, TValue>& other);
 	~Dictionary<TKey, TValue>();
 
+	/// <summary>
+	/// Gets the number of items in the dictionary
+	/// </summary>
 	int getCount() const { return m_count; }
 
-	void addItem(TKey key, TValue value);
+	/// <summary>
+	/// Creates a new item with the given key and value and adds it to the dictionary
+	/// </summary>
+	/// <param name="key">The key of the new item</param>
+	/// <param name="value">The value of the new item</param>
+	void addItem(const TKey& key, const TValue& value);
 
-	bool remove(TKey key);
-	bool remove(TKey key, TValue& value);
+	/// <summary>
+	/// Removes the item that matches the given key from the dictionary
+	/// </summary>
+	/// <param name="key">The key of the item to search for</param>
+	/// <returns>Whether or not the removal was successful. Returns false if the item isn't in the dictionary</returns>
+	bool remove(const TKey& key);
+	/// <summary>
+	/// Removes the item that matches the given key from the dictionary
+	/// </summary>
+	/// <param name="key">The key of the item to search for</param>
+	/// <param name="value">The variable to use to store the value that was removed</param>
+	/// <returns>Whether or not the removal was successful. Returns false if the item isn't in the dictionary</returns>
+	bool remove(const TKey& key, TValue& value);
 
-	bool containsKey(TKey key) const;
-	bool containsValue(TValue value) const;
+	/// <summary>
+	/// Checks to see if an item that has the given key is in the dictionary
+	/// </summary>
+	/// <param name="key">The key of the item to search for</param>
+	/// <returns>Returns false if the item wasn't in the dictionary</returns>
+	bool containsKey(const TKey& key) const;
+	/// <summary>
+	/// Checks to see if an item that has the given value is in the dictionary
+	/// </summary>
+	/// <param name="value">The key of the item to search for</param>
+	/// <returns>Returns false if the item wasn't in the dictionary</returns>
+	bool containsValue(const TValue& value) const;
 
-	bool tryGetValue(TKey key, TValue& value);
+	/// <summary>
+	/// Tries to find the item that matches the given key
+	/// </summary>
+	/// <param name="key">The key of the item to search for</param>
+	/// <param name="value">The variable to use to store the value that was found</param>
+	/// <returns></returns>
+	bool tryGetValue(const TKey& key, TValue& value) const;
 
+	/// <summary>
+	/// Deletes all items in dictionary
+	/// </summary>
 	void clear();
 
 	const Dictionary<TKey, TValue>& operator = (const Dictionary<TKey, TValue>& other);
 
-	TValue operator [](TKey key);
+	TValue operator [](const TKey key);
 
 private:
 	template <typename TItemKey, typename TItemValue>
@@ -59,7 +97,7 @@ inline Dictionary<TKey, TValue>::~Dictionary()
 }
 
 template<typename TKey, typename TValue>
-inline void Dictionary<TKey, TValue>::addItem(TKey key, TValue value)
+inline void Dictionary<TKey, TValue>::addItem(const TKey& key, const TValue& value)
 {
 	Item<TKey, TValue>* temp = new Item<TKey, TValue>[getCount() + 1];
 
@@ -79,7 +117,7 @@ inline void Dictionary<TKey, TValue>::addItem(TKey key, TValue value)
 }
 
 template<typename TKey, typename TValue>
-inline bool Dictionary<TKey, TValue>::remove(TKey key)
+inline bool Dictionary<TKey, TValue>::remove(const TKey& key)
 {
 	if (getCount() <= 0)
 		return false;
@@ -110,7 +148,7 @@ inline bool Dictionary<TKey, TValue>::remove(TKey key)
 }
 
 template<typename TKey, typename TValue>
-inline bool Dictionary<TKey, TValue>::remove(TKey key, TValue& value)
+inline bool Dictionary<TKey, TValue>::remove(const TKey& key, TValue& value)
 {
 	if (getCount() <= 0)
 		return false;
@@ -144,7 +182,7 @@ inline bool Dictionary<TKey, TValue>::remove(TKey key, TValue& value)
 }
 
 template<typename TKey, typename TValue>
-inline bool Dictionary<TKey, TValue>::containsKey(TKey key) const
+inline bool Dictionary<TKey, TValue>::containsKey(const TKey& key) const
 {
 	for (int i = 0; i < getCount(); i++)
 	{
@@ -156,7 +194,7 @@ inline bool Dictionary<TKey, TValue>::containsKey(TKey key) const
 }
 
 template<typename TKey, typename TValue>
-inline bool Dictionary<TKey, TValue>::containsValue(TValue value) const
+inline bool Dictionary<TKey, TValue>::containsValue(const TValue& value) const
 {
 	for (int i = 0; i < getCount(); i++)
 	{
@@ -168,7 +206,7 @@ inline bool Dictionary<TKey, TValue>::containsValue(TValue value) const
 }
 
 template<typename TKey, typename TValue>
-inline bool Dictionary<TKey, TValue>::tryGetValue(TKey key, TValue& value)
+inline bool Dictionary<TKey, TValue>::tryGetValue(const TKey& key, TValue& value) const
 {
 	for (int i = 0; i < getCount(); i++)
 	{
@@ -208,7 +246,7 @@ inline const Dictionary<TKey, TValue>& Dictionary<TKey, TValue>::operator=(const
 }
 
 template<typename TKey, typename TValue>
-inline TValue Dictionary<TKey, TValue>::operator[](TKey key)
+inline TValue Dictionary<TKey, TValue>::operator[](const TKey key)
 {
 	TValue val = TValue();
 
